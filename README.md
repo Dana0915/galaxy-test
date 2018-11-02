@@ -79,3 +79,63 @@ https://github.com/settings/keys
 点击New SSH key 按钮把复制的公钥粘贴进来
 
 点击add key 按钮保存成功
+
+GIT使用方法
+
+同步远程分支到当前分支
+git merge 分支名称
+
+拉取远程分支并创建本地分支 
+
+方法一:
+git checkout -b 本地分支名x origin/远程分支名x
+使用该方式会在本地新建分支x，并自动切换到该本地分支x。
+
+方法二
+git fetch origin 远程分支名x:本地分支名x
+使用该方式会在本地新建分支x，但是不会自动切换到该本地分支x，需要手动checkout。
+
+用git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别：
+git diff HEAD -- readme.txt 
+
+创建本地分支并同步到远程
+1:本地创建分支dev
+  git branch dev
+2:把本地分支提交到远程仓库
+  git push origin dev
+3:查看一下远程仓库有几个分支
+  git branch -r
+
+把readme.txt文件在工作区的修改全部撤销
+git checkout -- readme.txt
+
+提交代码忽略检查
+git commit -m "proxy server" --no-verify
+
+直接在文件管理器中把没用的文件删了，或者用rm命令删了
+rm test.txt
+
+要从版本库中删除该文件，那就用命令git rm删掉，并且git commit
+git rm test.txt
+
+删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本
+git checkout -- test.txt
+
+发布 develop 本地开发分支到远程服务器
+git push origin 本地分支名:远程分支名
+
+使用 git remote prune origin 可以将已删除远程分支从本地版本库中去除。
+
+回滚代码
+
+1、本地代码回滚到上一版本（或者指定版本）
+git reset --hard HEAD~1 
+或者
+git reset --hard the_commit_id
+
+2、加入-f参数，强制提交，远程端将强制跟新到reset版本
+git push -f origin master 
+
+建立本地到上游（远端）仓的链接 --这样代码才能提交上去
+
+git branch --set-upstream-to=origin/dev 
